@@ -1,4 +1,16 @@
-﻿cls
+﻿# URL do arquivo raw no GitHub
+$githubRawUrl = "https://raw.githubusercontent.com/brunoverona/Deploy_teste/main/Deploy_On_Client-teste.ps1"
+
+# Caminho local do script
+$scriptPath = "D:\Users\bruno\Desktop\Deploy_On_Client.ps1"
+
+# Baixa o conteúdo do arquivo diretamente do GitHub e sobrescreve o script local
+Invoke-WebRequest -Uri $githubRawUrl -OutFile $scriptPath
+
+# Executa o script após a atualização
+. $scriptPath
+
+cls
 $VerbosePreference = "Continue"
 $ErrorActionPreference = "Stop"
 
@@ -6,10 +18,10 @@ $ErrorActionPreference = "Stop"
 $deploy_user = "bruno"
 
 # Diretório do temporário para o Deploy
-$deploy_temp_dir = "D:\Ecalc\temp\Portal_Deploy\"
+$deploy_temp_dir = "D:\Ecalc\temp_TESTE\Portal_Deploy\"
 
 # Diretório do temporário para o Strut.xml
-$deploy_temp_strut = "D:\Ecalc\temp\Strut.xml"
+$deploy_temp_strut = "D:\Ecalc\temp_TESTE\Strut.xml"
 
 # Executável do XStrut Console
 $xstrut_exec = "D:\Ecalc\exe\XStrutCon.exe"
