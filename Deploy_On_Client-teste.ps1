@@ -1,18 +1,32 @@
-﻿# URL do arquivo raw no GitHub
-$githubRawUrl = "https://raw.githubusercontent.com/brunoverona/Deploy_teste/main/Deploy_On_Client-teste.ps1"
-
-# Caminho local do script
-$scriptPath = "D:\Users\bruno\Desktop\Deploy_On_Client.ps1"
-
-# Baixa o conteúdo do arquivo diretamente do GitHub e sobrescreve o script local
-Invoke-WebRequest -Uri $githubRawUrl -OutFile $scriptPath
-
-# Executa o script após a atualização
-. $scriptPath
-
-cls
+﻿cls
 $VerbosePreference = "Continue"
 $ErrorActionPreference = "Stop"
+
+# URL da API do GitHub para obter informações do arquivo
+$githubApiUrl = "https://api.github.com/repos/brunoverona/Deploy_teste/contents/Deploy_On_Client-teste.ps1"
+
+# Caminho local do script
+$scriptPath = "D:\Users\bruno\Desktop\Deploy_On_Client-teste.ps1"
+
+# Função para baixar e executar a versão mais recente do script
+function BaixarEExecutarScript {
+    # Obtém as informações do arquivo da API do GitHub
+    $fileInfo = Invoke-RestMethod -Uri $githubApiUrl -Method Get
+
+    # Compara as timestamps para verificar se há uma versão mais recente
+    if ($fileInfo.last_modified -gt (Get-Item $scriptPath).LastWriteTime) {
+        # Baixa o conteúdo do arquivo diretamente do GitHub e sobrescreve o script local
+        Invoke-WebRequest -Uri $fileInfo.download_url -OutFile $scriptPath
+
+        # Executa o script após a atualização
+        . $scriptPath
+    } else {
+        Write-Host "O script está atualizado. Continuando com a execução normal."
+    }
+}
+
+# Chama a função para verificar e atualizar o script
+BaixarEExecutarScript
 
 # Usuario que executa o Deploy (deve ser o mesmo que esta logado)
 $deploy_user = "bruno"
