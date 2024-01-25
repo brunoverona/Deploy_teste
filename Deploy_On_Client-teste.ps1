@@ -2,8 +2,6 @@
 $VerbosePreference = "Continue"
 $ErrorActionPreference = "Stop"
 
-#TESTE DE DOWLOAD DE ALTERAÇÃO 1
-#TESTE DE DOWLOAD DE ALTERAÇÃO 2
 
 # URL da API do GitHub para obter informações do arquivo
 $githubApiUrl = "https://api.github.com/repos/brunoverona/Deploy_teste/contents/Deploy_On_Client-teste.ps1"
@@ -12,12 +10,18 @@ $githubApiUrl = "https://api.github.com/repos/brunoverona/Deploy_teste/contents/
 $scriptPath = "D:\Users\bruno\Desktop\Deploy_On_Client-teste.ps1"
 
 # Função para baixar e executar a versão mais recente do script
-function BaixarEExecutarScript {
+function UpdateScript {
     # Obtém as informações do arquivo da API do GitHub
     $fileInfo = Invoke-RestMethod -Uri $githubApiUrl -Method Get
 
-    # Compara as timestamps para verificar se há uma versão mais recente
-    if ($fileInfo.last_modified -gt (Get-Item $scriptPath).LastWriteTime) {
+    # Calcula o hash SHA-256 do conteúdo local
+    $hashLocal = Get-FileHash -Path $scriptPath -Algorithm SHA256
+
+    # Calcula o hash SHA-256 do conteúdo no GitHub (convertido de Base64)
+    $hashGitHub = [System.Security.Cryptography.SHA256]::Create().ComputeHash([Convert]::FromBase64String($fileInfo.content))
+
+    # Compara os hashes para verificar se há uma alteração
+    if (-not ($hashLocal.Hash -eq $hashGitHub)) {
         # Baixa o conteúdo do arquivo diretamente do GitHub e sobrescreve o script local
         Invoke-WebRequest -Uri $fileInfo.download_url -OutFile $scriptPath
 
@@ -29,7 +33,7 @@ function BaixarEExecutarScript {
 }
 
 # Chama a função para verificar e atualizar o script
-BaixarEExecutarScript
+UpdateScript
 
 # Usuario que executa o Deploy (deve ser o mesmo que esta logado)
 $deploy_user = "bruno"
