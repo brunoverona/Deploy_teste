@@ -5,6 +5,7 @@ $ErrorActionPreference = "Stop"
 #ALTERAÇÃO 1
 #ALTERAÇÃO 2
 #ALTERAÇÃO 3
+#ALTERAÇÃO 4
 
 # URL da API do GitHub para obter informações do arquivo
 $githubApiUrl = "https://api.github.com/repos/brunoverona/Deploy_teste/contents/Deploy_On_Client-teste.ps1"
