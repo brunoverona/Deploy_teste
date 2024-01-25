@@ -3,6 +3,7 @@ $VerbosePreference = "Continue"
 $ErrorActionPreference = "Stop"
 
 #ALTERAÇÃO 1
+#ALTERAÇÃO 2
 
 # URL da API do GitHub para obter informações do arquivo
 $githubApiUrl = "https://api.github.com/repos/brunoverona/Deploy_teste/contents/Deploy_On_Client-teste.ps1"
@@ -39,7 +40,7 @@ function UpdateScript {
         $process.WaitForExit()
 
         # Sair do script atual
-        Exit
+        Return
     } else {
         Write-Host "O script está atualizado. Continuando com a execução normal."
     }
