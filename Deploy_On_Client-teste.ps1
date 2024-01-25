@@ -3,15 +3,15 @@ $VerbosePreference = "Continue"
 $ErrorActionPreference = "Stop"
 
 #ALTERAÇÃO 1
-#ALTERAÇÃO 2
-#ALTERAÇÃO 3
-#ALTERAÇÃO 4
 
 # URL da API do GitHub para obter informações do arquivo
 $githubApiUrl = "https://api.github.com/repos/brunoverona/Deploy_teste/contents/Deploy_On_Client-teste.ps1"
 
 # Caminho local do script
 $scriptPath = "D:\Users\bruno\Desktop\Deploy_On_Client-teste.ps1"
+
+# Obtém o caminho do PowerShell
+$PowerShellExe = (Get-Command powershell.exe).Path
 
 # Função para baixar e executar a versão mais recente do script
 function UpdateScript {
@@ -29,20 +29,11 @@ function UpdateScript {
         # Baixa o conteúdo do arquivo diretamente do GitHub e sobrescreve o script local
         Invoke-WebRequest -Uri $fileInfo.download_url -OutFile $scriptPath
 
-        # Reinicia o script após a atualização
-        $startInfo = New-Object System.Diagnostics.ProcessStartInfo
-        $startInfo.FileName = "powershell.exe"
-        $startInfo.Arguments = "-File $scriptPath"
-        $startInfo.UseShellExecute = $false
-        $startInfo.RedirectStandardOutput = $true
-
-        $process = New-Object System.Diagnostics.Process
-        $process.StartInfo = $startInfo
-        $process.Start() | Out-Null
-        $process.WaitForExit()
+        # Reinicia o PowerShell e executa o mesmo script como Administrador
+        Start-Process -FilePath $PowerShellExe -ArgumentList "-File", "$scriptPath" -Verb RunAs)
 
         # Sair do script atual
-        Return
+        Exit
     } else {
         Write-Verbose "O script está atualizado. Continuando com a execução normal."
     }
