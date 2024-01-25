@@ -3,6 +3,7 @@ $VerbosePreference = "Continue"
 $ErrorActionPreference = "Stop"
 
 #TESTE DE DOWLOAD DE ALTERAÇÃO 1
+#TESTE DE DOWLOAD DE ALTERAÇÃO 2
 
 # URL da API do GitHub para obter informações do arquivo
 $githubApiUrl = "https://api.github.com/repos/brunoverona/Deploy_teste/contents/Deploy_On_Client-teste.ps1"
