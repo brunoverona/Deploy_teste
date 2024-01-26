@@ -10,9 +10,6 @@ $githubApiUrl = "https://api.github.com/repos/brunoverona/Deploy_teste/contents/
 # Caminho local do script
 $scriptPath = "D:\Users\bruno\Desktop\Deploy_On_Client-teste.ps1"
 
-# Obtém o caminho do PowerShell
-$PowerShellExe = (Get-Command powershell.exe).Path
-
 # Função para baixar e executar a versão mais recente do script
 function UpdateScript {
     # Obtém as informações do arquivo da API do GitHub
@@ -29,12 +26,10 @@ function UpdateScript {
         # Baixa o conteúdo do arquivo diretamente do GitHub e sobrescreve o script local
         Invoke-WebRequest -Uri $fileInfo.download_url -OutFile $scriptPath
 
-        Write-Verbose "O script foi atualizado. Favor executá-lo novamente(como Administrador)"
-
-        # Encerra o script atual
-        Stop-Process -Id $PID
+        # Executa o script após a atualização
+        . $scriptPath
     } else {
-        Write-Verbose "O script está atualizado. Continuando com a execução normal."
+        Write-Host "O script está atualizado. Continuando com a execução normal."
     }
 }
 
