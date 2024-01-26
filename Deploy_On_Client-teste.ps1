@@ -26,8 +26,6 @@ function UpdateScript {
         # Baixa o conteúdo do arquivo diretamente do GitHub e sobrescreve o script local
         Invoke-WebRequest -Uri $fileInfo.download_url -OutFile $scriptPath
 
-        # Executa o script após a atualização
-        . $scriptPath
     } else {
         Write-Host "O script está atualizado. Continuando com a execução normal."
     }
