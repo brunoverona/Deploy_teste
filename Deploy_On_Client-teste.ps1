@@ -39,14 +39,18 @@ function UpdateScript {
 # Chama a função para verificar e atualizar o script
 UpdateScript
 
+cls
+$VerbosePreference = "Continue"
+$ErrorActionPreference = "Stop"
+
 # Usuario que executa o Deploy (deve ser o mesmo que esta logado)
 $deploy_user = "bruno"
 
 # Diretório do temporário para o Deploy
-$deploy_temp_dir = "D:\Ecalc\temp_TESTE\Portal_Deploy\"
+$deploy_temp_dir = "D:\Ecalc\temp\Portal_Deploy\"
 
 # Diretório do temporário para o Strut.xml
-$deploy_temp_strut = "D:\Ecalc\temp_TESTE\Strut.xml"
+$deploy_temp_strut = "D:\Ecalc\temp\Strut.xml"
 
 # Executável do XStrut Console
 $xstrut_exec = "D:\Ecalc\exe\XStrutCon.exe"
