@@ -30,7 +30,7 @@ function UpdateScript {
         Invoke-WebRequest -Uri $fileInfo.download_url -OutFile $scriptPath
 
         # Reinicia o PowerShell e executa o mesmo script como Administrador
-        Start-Process -FilePath $PowerShellExe -ArgumentList "-File", "$scriptPath" -Verb RunAs
+        Start-Process -FilePath $PowerShellExe -ArgumentList "-File", "$scriptPath" -Verb RunAs -PassThru
 
         # Encerra o script atual
         Stop-Process -Id $PID
