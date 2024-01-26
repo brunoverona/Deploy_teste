@@ -39,7 +39,7 @@ function UpdateScript {
         $process.WaitForExit()
 
         # Sair do script atual
-        Exit
+        Return
     } else {
         Write-Host "O script está atualizado. Continuando com a execução normal."
     }
