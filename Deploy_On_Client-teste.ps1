@@ -31,7 +31,7 @@ function UpdateScript {
         Write-Host "O script foi atualizado com sucesso."
 
         # Reinicia o script
-        & $scriptPath
+        Invoke-Expression -Command "$scriptPath"
     } else {
         Write-Host "O script está atualizado. Continuando com a execução normal."
     }
