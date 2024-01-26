@@ -30,8 +30,14 @@ function UpdateScript {
         Invoke-WebRequest -Uri $fileInfo.download_url -OutFile $scriptPath
         Write-Host "O script foi atualizado com sucesso."
 
-        # Reinicia o script
-        Invoke-Expression -Command "$scriptPath"
+        # Obtém o caminho completo do PowerShell
+        $powershellExe = (Get-Command powershell.exe).Source
+
+        # Inicia um novo processo do PowerShell com o script atualizado
+        Start-Process -FilePath $powershellExe -ArgumentList "-File $scriptPath"
+        
+        # Encerra o processo atual
+        Stop-Process -Id $PID -Force
     } else {
         Write-Host "O script está atualizado. Continuando com a execução normal."
     }
