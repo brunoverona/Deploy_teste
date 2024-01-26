@@ -29,12 +29,6 @@ function UpdateScript {
         # Baixa o conteúdo do arquivo diretamente do GitHub e sobrescreve o script local
         Invoke-WebRequest -Uri $fileInfo.download_url -OutFile $scriptPath
         Write-Host "O script foi atualizado com sucesso."
-
-        # Inicia o script novamente como administrador e exibe no console
-        Start-Process -FilePath "powershell.exe" -ArgumentList "-NoProfile -ExecutionPolicy Bypass -File `"$scriptPath`"" -Verb RunAs
-                        
-        # Encerra o processo atual
-        Exit
     } else {
         Write-Host "O script está atualizado. Continuando com a execução normal."
     }
