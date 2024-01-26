@@ -32,11 +32,8 @@ function UpdateScript {
         # Reinicia o PowerShell e executa o mesmo script como Administrador
         Start-Process -FilePath $PowerShellExe -ArgumentList "-File", "$scriptPath" -Verb RunAs
 
-        # Aguarda alguns segundos para dar ao novo processo a chance de iniciar
-        Start-Sleep -Seconds 5
-
-        # Sair do script atual
-        Exit
+        # Encerra o script atual
+        Stop-Process -Id $PID
     } else {
         Write-Verbose "O script está atualizado. Continuando com a execução normal."
     }
