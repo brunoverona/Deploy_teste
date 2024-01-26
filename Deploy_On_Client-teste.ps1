@@ -16,21 +16,21 @@ function UpdateScript {
     $fileInfo = Invoke-RestMethod -Uri $githubApiUrl -Method Get
 
     # Calcula o hash SHA-256 do conteúdo local
-    $hashLocal = (Get-FileHash -Path $scriptPath -Algorithm SHA256).Hash
+    $hashLocal = Get-FileHash -Path $scriptPath -Algorithm SHA256
 
     # Calcula o hash SHA-256 do conteúdo no GitHub (convertido de Base64)
-    $hashGitHub = [System.BitConverter]::ToString([System.Security.Cryptography.SHA256]::Create().ComputeHash([Convert]::FromBase64String($fileInfo.content)))
+    $hashGitHub = [System.Security.Cryptography.SHA256]::Create().ComputeHash([Convert]::FromBase64String($fileInfo.content))
 
     # Compara os hashes para verificar se há uma alteração
-    if ($hashLocal -ne $hashGitHub) {
+    if (-not ($hashLocal.Hash -eq $hashGitHub)) {
         # Baixa o conteúdo do arquivo diretamente do GitHub e sobrescreve o script local
-        $scriptContent = Invoke-RestMethod -Uri $fileInfo.download_url
-        Set-Content -Path $scriptPath -Value $scriptContent -Force
+        Invoke-WebRequest -Uri $fileInfo.download_url -OutFile $scriptPath
 
-        Write-Host "Script atualizado. Iniciando o novo script após a atualização."
-
-        # Inicia o novo script após a atualização
-        & powershell -File $scriptPath
+        # Reinicia o script após a atualização
+        Start-Process powershell -ArgumentList "-File", "$scriptPath" -Verb RunAs
+        
+        # Sair do script atual
+        Exit
     } else {
         Write-Host "O script está atualizado. Continuando com a execução normal."
     }
@@ -80,7 +80,7 @@ ForEach ($dir in $dirs_array)
     $acl_backup = Get-Acl $backupDir
 
     # Forçando uma ACL (access-control list) com "Full Control"
-    $acl_fullcontrol = New-Object System.Security.AccessControl.FileSystemAccessRule($deploy_user,"FullControl”,”ContainerInherit,ObjectInherit”,”None”,”Allow”)
+    $acl_fullcontrol = New-Object System.Security.AccessControl.FileSystemAccessRule($deploy_user,”FullControl”,”ContainerInherit,ObjectInherit”,”None”,”Allow”)
 
     $acl_portal.AddAccessRule($acl_fullcontrol)
     $acl_backup.AddAccessRule($acl_fullcontrol)
