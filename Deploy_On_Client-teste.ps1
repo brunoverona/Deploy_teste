@@ -31,7 +31,7 @@ function UpdateScript {
         Write-Host "O script foi atualizado com sucesso."
 
         # Inicia o script novamente como administrador e exibe no console
-        Start-Process -FilePath "powershell.exe" -ArgumentList "-NoProfile", "-ExecutionPolicy", "Bypass", "-File `"$scriptPath`"" -Verb RunAs -NoNewWindow
+        Start-Process -FilePath "powershell.exe" -ArgumentList "-NoProfile -ExecutionPolicy Bypass -File `"$scriptPath`"" -Verb RunAs
                         
         # Encerra o processo atual
         Exit
