@@ -26,11 +26,8 @@ function UpdateScript {
         # Baixa o conteúdo do arquivo diretamente do GitHub e sobrescreve o script local
         Invoke-WebRequest -Uri $fileInfo.download_url -OutFile $scriptPath
 
-        # Reinicia o script após a atualização
-        Start-Process powershell -ArgumentList "-File", "$scriptPath" -Verb RunAs
-        
-        # Sair do script atual
-        Exit
+        # Executa o script após a atualização
+        . $scriptPath
     } else {
         Write-Host "O script está atualizado. Continuando com a execução normal."
     }
@@ -39,18 +36,14 @@ function UpdateScript {
 # Chama a função para verificar e atualizar o script
 UpdateScript
 
-cls
-$VerbosePreference = "Continue"
-$ErrorActionPreference = "Stop"
-
 # Usuario que executa o Deploy (deve ser o mesmo que esta logado)
 $deploy_user = "bruno"
 
 # Diretório do temporário para o Deploy
-$deploy_temp_dir = "D:\Ecalc\temp\Portal_Deploy\"
+$deploy_temp_dir = "D:\Ecalc\temp_TESTE\Portal_Deploy\"
 
 # Diretório do temporário para o Strut.xml
-$deploy_temp_strut = "D:\Ecalc\temp\Strut.xml"
+$deploy_temp_strut = "D:\Ecalc\temp_TESTE\Strut.xml"
 
 # Executável do XStrut Console
 $xstrut_exec = "D:\Ecalc\exe\XStrutCon.exe"
