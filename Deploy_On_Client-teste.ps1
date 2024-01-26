@@ -29,10 +29,10 @@ function UpdateScript {
         # Baixa o conteúdo do arquivo diretamente do GitHub e sobrescreve o script local
         Invoke-WebRequest -Uri $fileInfo.download_url -OutFile $scriptPath
 
+        Write-Verbose "O script foi atualizado. Favor executá-lo novamente(como Administrador)"
+
         # Encerra o script atual
         Stop-Process -Id $PID
-
-        Write-Verbose "O script foi atualizado. Favor executá-lo novamente(como Administrador)"
     } else {
         Write-Verbose "O script está atualizado. Continuando com a execução normal."
     }
