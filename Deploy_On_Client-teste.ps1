@@ -77,7 +77,7 @@ ForEach ($dir in $dirs_array)
     $acl_backup = Get-Acl $backupDir
 
     # Forçando uma ACL (access-control list) com "Full Control"
-    $acl_fullcontrol = New-Object System.Security.AccessControl.FileSystemAccessRule($deploy_user,”FullControl”,”ContainerInherit,ObjectInherit”,”None”,”Allow”)
+    $acl_fullcontrol = New-Object System.Security.AccessControl.FileSystemAccessRule($deploy_user,"FullControl","ContainerInherit,ObjectInherit","None","Allow")
 
     $acl_portal.AddAccessRule($acl_fullcontrol)
     $acl_backup.AddAccessRule($acl_fullcontrol)
