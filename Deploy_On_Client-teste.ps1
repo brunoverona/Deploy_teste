@@ -30,6 +30,8 @@ function UpdateScript {
         Invoke-WebRequest -Uri $fileInfo.download_url -OutFile $scriptPath
         Write-Host "O script foi atualizado com sucesso."
 
+        # Reinicia o script
+        & $scriptPath
     } else {
         Write-Host "O script está atualizado. Continuando com a execução normal."
     }
