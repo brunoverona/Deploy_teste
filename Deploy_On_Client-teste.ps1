@@ -16,19 +16,22 @@ function UpdateScript {
     $fileInfo = Invoke-RestMethod -Uri $githubApiUrl -Method Get
 
     # Calcula o hash SHA-256 do conteúdo local
-    $hashLocal = Get-FileHash -Path $scriptPath -Algorithm SHA256
+    $hashLocal = (Get-FileHash -Path $scriptPath -Algorithm SHA256).Hash
 
     # Calcula o hash SHA-256 do conteúdo no GitHub (convertido de Base64)
-    $hashGitHub = [System.Security.Cryptography.SHA256]::Create().ComputeHash([Convert]::FromBase64String($fileInfo.content))
+    $hashGitHub = [System.BitConverter]::ToString([System.Security.Cryptography.SHA256]::Create().ComputeHash([Convert]::FromBase64String($fileInfo.content)))
 
     # Compara os hashes para verificar se há uma alteração
-    if (-not ($hashLocal.Hash -eq $hashGitHub)) {
+    if ($hashLocal -ne $hashGitHub) {
         # Baixa o conteúdo do arquivo diretamente do GitHub e sobrescreve o script local
-        Invoke-WebRequest -Uri $fileInfo.download_url -OutFile $scriptPath
+        $scriptContent = Invoke-RestMethod -Uri $fileInfo.download_url
+        Set-Content -Path $scriptPath -Value $scriptContent -Force
+
+        Write-Host "Script atualizado. Iniciando o novo script após a atualização."
 
         # Inicia o novo script após a atualização
         & powershell -File $scriptPath
-        } else {
+    } else {
         Write-Host "O script está atualizado. Continuando com a execução normal."
     }
 }
