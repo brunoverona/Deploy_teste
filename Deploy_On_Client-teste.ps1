@@ -16,15 +16,19 @@ function UpdateScript {
     $fileInfo = Invoke-RestMethod -Uri $githubApiUrl -Method Get
 
     # Calcula o hash SHA-256 do conteúdo local
-    $hashLocal = Get-FileHash -Path $scriptPath -Algorithm SHA256
+    $hashLocal = (Get-FileHash -Path $scriptPath -Algorithm SHA256).Hash
 
-    # Calcula o hash SHA-256 do conteúdo no GitHub (convertido de Base64)
-    $hashGitHub = [System.Security.Cryptography.SHA256]::Create().ComputeHash([Convert]::FromBase64String($fileInfo.content))
+    # Converte o conteúdo do GitHub de Base64 para texto
+    $contentGitHub = [System.Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($fileInfo.content))
+
+    # Calcula o hash SHA-256 do conteúdo no GitHub
+    $hashGitHub = (Get-FileHash -Algorithm SHA256 -InputStream ([System.IO.MemoryStream]::new([System.Text.Encoding]::UTF8.GetBytes($contentGitHub)))).Hash
 
     # Compara os hashes para verificar se há uma alteração
-    if (-not ($hashLocal.Hash -eq $hashGitHub)) {
+    if ($hashLocal -ne $hashGitHub) {
         # Baixa o conteúdo do arquivo diretamente do GitHub e sobrescreve o script local
         Invoke-WebRequest -Uri $fileInfo.download_url -OutFile $scriptPath
+        Write-Host "O script foi atualizado com sucesso."
 
     } else {
         Write-Host "O script está atualizado. Continuando com a execução normal."
