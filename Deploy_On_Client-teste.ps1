@@ -27,19 +27,10 @@ function UpdateScript {
         Invoke-WebRequest -Uri $fileInfo.download_url -OutFile $scriptPath
 
         # Reinicia o script após a atualização
-        $startInfo = New-Object System.Diagnostics.ProcessStartInfo
-        $startInfo.FileName = "powershell.exe"
-        $startInfo.Arguments = "-File $scriptPath"
-        $startInfo.UseShellExecute = $false
-        $startInfo.RedirectStandardOutput = $true
-
-        $process = New-Object System.Diagnostics.Process
-        $process.StartInfo = $startInfo
-        $process.Start() | Out-Null
-        $process.WaitForExit()
-
+        Start-Process powershell -ArgumentList "-File", "$scriptPath" -Verb RunAs
+        
         # Sair do script atual
-        Return
+        Exit
     } else {
         Write-Host "O script está atualizado. Continuando com a execução normal."
     }
