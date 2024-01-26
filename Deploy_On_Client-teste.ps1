@@ -26,12 +26,9 @@ function UpdateScript {
         # Baixa o conteúdo do arquivo diretamente do GitHub e sobrescreve o script local
         Invoke-WebRequest -Uri $fileInfo.download_url -OutFile $scriptPath
 
-        # Reinicia o script após a atualização
-        Start-Process powershell -ArgumentList "-File", "$scriptPath" -Verb RunAs
-        
-        # Sair do script atual
-        Exit
-    } else {
+        # Inicia o novo script após a atualização
+        & powershell -File $scriptPath
+        } else {
         Write-Host "O script está atualizado. Continuando com a execução normal."
     }
 }
