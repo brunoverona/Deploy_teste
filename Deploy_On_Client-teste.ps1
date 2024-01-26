@@ -29,11 +29,10 @@ function UpdateScript {
         # Baixa o conteúdo do arquivo diretamente do GitHub e sobrescreve o script local
         Invoke-WebRequest -Uri $fileInfo.download_url -OutFile $scriptPath
 
-        # Reinicia o PowerShell e executa o mesmo script como Administrador
-        Start-Process -FilePath $PowerShellExe -ArgumentList "-File", "$scriptPath" -Verb RunAs -PassThru
-
         # Encerra o script atual
         Stop-Process -Id $PID
+
+        Write-Verbose "O script foi atualizado. Favor executá-lo novamente(como Administrador)"
     } else {
         Write-Verbose "O script está atualizado. Continuando com a execução normal."
     }
