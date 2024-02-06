@@ -2,6 +2,8 @@
 $VerbosePreference = "Continue"
 $ErrorActionPreference = "Stop"
 
+#ALTERAÇÃO
+
 # Usuario que executa o Deploy (deve ser o mesmo que esta logado)
 $deploy_user = "bruno"
 
