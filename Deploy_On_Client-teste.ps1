@@ -4,7 +4,7 @@ $ErrorActionPreference = "Stop"
 
 #ALTERAÇÃO
 Write-Verbose "Este script foi atualizado!"
-
+Write-Verbose "Este script foi atualizado novamente!"
 
 # Usuario que executa o Deploy (deve ser o mesmo que esta logado)
 $deploy_user = "bruno"
