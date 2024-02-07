@@ -3,12 +3,7 @@ $VerbosePreference = "Continue"
 $ErrorActionPreference = "Stop"
 
 #ALTERAÇÃO
-Write-Verbose "Este script foi atualizado!"
-Write-Verbose "Este script foi atualizado novamente!"
-Write-Verbose "Este script foi atualizado novamente pela 3ª vez!"
-Write-Verbose "Este script foi atualizado novamente pela 4ª vez!"
-Write-Verbose "Este script foi atualizado novamente pela 5ª vez!"
-Write-Verbose "Este script foi atualizado novamente pela 6ª vez!"
+Write-Verbose "Este script foi atualizado para nova plataforma!"
 
 # Usuario que executa o Deploy (deve ser o mesmo que esta logado)
 $deploy_user = "bruno"
