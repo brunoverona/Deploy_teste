@@ -5,6 +5,7 @@ $ErrorActionPreference = "Stop"
 #ALTERAÇÃO
 Write-Verbose "Este script foi atualizado para nova plataforma!"
 teste de git pelo sublime
+Alteração pelo git
 
 # Usuario que executa o Deploy (deve ser o mesmo que esta logado)
 $deploy_user = "bruno"
