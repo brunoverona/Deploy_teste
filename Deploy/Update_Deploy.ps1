@@ -3,6 +3,9 @@ Write-Host "INICIANDO $PSCommandPath"
 Write-Host "Procedimento de atualização da Esteira Deploy."
 Write-Host "==========================================="
 
+# URL da API do GitHub para obter informações do arquivo
+$githubApiUrl = "https://api.github.com/repos/brunoverona/Deploy_teste/contents/Deploy_On_Client.ps1"
+
 # Caminho local do script
 $scriptPath = "$PSScriptRoot\Deploy_On_Client.ps1"
 

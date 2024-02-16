@@ -1,7 +1,8 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Scripts"
   ],
-  "SelectedNode": "\\Deploy_On_Client.ps1",
+  "SelectedNode": "\\Scripts\\Enable_IIS_Features.ps1",
   "PreviewInSolutionExplorer": false
 }
