@@ -6,7 +6,7 @@ $ErrorActionPreference = "Stop"
 $deploy_user = "bruno"
 
 # Diretórios a serem atualizados
-$portal = "D:\Ecalc\Sistemas\Portal"
+$portal = "D:\Ecalc\Sistemas\EcalcPortal"
 
 # Caminho do diretório onde estão os arquivos
 $bkp_dir = "D:\Ecalc\Sistemas\BKP\"
@@ -19,9 +19,6 @@ if ($backup -ne $null) {
     # Caminho completo do arquivo mais recente
     $bkp_path = $backup.FullName
     Write-Host "O arquivo mais recente é: $bkp_path"
-} else {
-    Write-Host "Nenhum arquivo encontrado no diretório especificado."
-}
 
 #Parar o IIS antes de excluir arquivos antigos, pra garantir que não vão estar em uso
 Write-Verbose "Parando IIS..."
@@ -39,6 +36,10 @@ Expand-Archive $backup -DestinationPath $portal -Force
 Write-Verbose "Executando a rotina de restauração LIBMAN no diretório: $portal"
 cd $portal
 libman restore
+
+} else {
+    Write-Verbose "Nenhum arquivo encontrado no diretório especificado."
+}
 
 Write-Verbose "==========================================="
 Write-Verbose ""

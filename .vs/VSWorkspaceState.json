@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
+    "\\Deploy",
     "\\Scripts"
   ],
-  "SelectedNode": "\\Scripts\\Enable_IIS_Features.ps1",
+  "SelectedNode": "\\Deploy\\_SharedVariables.ps1",
   "PreviewInSolutionExplorer": false
 }

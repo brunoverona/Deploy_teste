@@ -6,10 +6,10 @@ $ErrorActionPreference = "Stop"
 $deploy_user = "bruno"
 
 # Diretório do temporário para o Deploy
-$deploy_temp_dir = "D:\Ecalc\temp_TESTE\Portal_Deploy\"
+$deploy_temp_dir = "D:\Ecalc\temp\Portal_Deploy\"
 
 # Diretório do temporário para o Strut.xml
-$deploy_temp_strut = "D:\Ecalc\temp_TESTE\Strut.xml"
+$deploy_temp_strut = "D:\Ecalc\temp\Strut.xml"
 
 # Executável do XStrut Console
 $xstrut_exec = "D:\Ecalc\exe\XStrutCon.exe"
@@ -17,8 +17,8 @@ $xstrut_exec = "D:\Ecalc\exe\XStrutCon.exe"
 # Diretórios a serem atualizados
 $dirs_array = @(
     [pscustomobject]@{
-        portal="D:\Ecalc\Sistemas\Portal"; 
-        backup="D:\Ecalc\Sistemas\BKP\Portal"}
+        portal="D:\Ecalc\Sistema\EcalcPortal"; 
+        backup="D:\Ecalc\Sistema\BKP\EcalcPortal"}
 )
 
 # Bancos a serem reestruturados com Strut.xml no Client
@@ -43,7 +43,7 @@ ForEach ($dir in $dirs_array)
     $acl_backup = Get-Acl $backupDir
 
     # Forçando uma ACL (access-control list) com "Full Control"
-    $acl_fullcontrol = New-Object System.Security.AccessControl.FileSystemAccessRule($deploy_user,"FullControl","ContainerInherit,ObjectInherit","None","Allow")
+    $acl_fullcontrol = New-Object System.Security.AccessControl.FileSystemAccessRule($deploy_user,”FullControl”,”ContainerInherit,ObjectInherit”,”None”,”Allow”)
 
     $acl_portal.AddAccessRule($acl_fullcontrol)
     $acl_backup.AddAccessRule($acl_fullcontrol)
