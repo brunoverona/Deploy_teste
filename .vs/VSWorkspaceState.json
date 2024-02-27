@@ -4,6 +4,6 @@
     "\\Deploy",
     "\\Scripts"
   ],
-  "SelectedNode": "\\Deploy\\_SharedVariables.ps1",
+  "SelectedNode": "\\Scripts\\Dotnet_Version_Check.ps1",
   "PreviewInSolutionExplorer": false
 }

@@ -16,9 +16,9 @@ if ($versoesInstaladas -contains $versaoMinima) {
     Write-Host ".NET Framework $versaoMinima (ou mais recente) não está instalado."
 
     # Pergunta ao usuário se deseja instalar o .NET Framework
-    $resposta = Read-Host "Deseja instalar o .NET Framework $versaoMinima (ou mais recente)? (y/n)"
+    $resposta = Read-Host "Deseja instalar o .NET Framework $versaoMinima (ou mais recente)? (s/n)"
 
-    if ($resposta -eq 'y') {
+    if ($resposta -eq 's') {
         # Inicia o processo de instalação
         $urlInstalacao = 'https://download.visualstudio.microsoft.com/download/pr/1d82b4da-b688-43b0-8366-36976f618787/e84b26c62477c4608c94b38f82fdedc0/ndp48-x86-x64-allos-enu.exe'
         Start-Process -FilePath $urlInstalacao -Wait
