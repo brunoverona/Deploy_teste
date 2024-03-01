@@ -1,9 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Deploy",
     "\\Scripts"
   ],
-  "SelectedNode": "\\Scripts\\Dotnet_Version_Check.ps1",
+  "SelectedNode": "\\Scripts\\Bkp_Restore.ps1",
   "PreviewInSolutionExplorer": false
 }
